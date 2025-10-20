@@ -24,8 +24,8 @@ class AsObj:
             for key, value in self._json.items():
                 if isinstance(value, (dict, list)):
                     if self._key and key == self._key:
-                        final = AsObj(value, dict_key=isinstance(value, dict), dict_key_name=key)
-                        self._obj_list = final
+                                final = AsObj(value, dict_key=isinstance(value, dict), dict_key_name=key)
+                                self._obj_list = final
                     else:
                         final = AsObj(value)
                 else:
@@ -35,7 +35,7 @@ class AsObj:
                 setattr(self, key, final)
 
     def _dict(self):
-        return {k: v for k, v in self.__dict__.items() if not k.startswith("_")}
+            return {k: v for k, v in self.__dict__.items() if not k.startswith("_")}
 
     def __delitem__(self, key):
         return delattr(self, key)
@@ -44,16 +44,16 @@ class AsObj:
         if isinstance(key, int) and self._obj_list:
             return self._obj_list[key]
         else:
-            return getattr(self, key)
+            return getattr(self, self._key)
 
     def __iter__(self):
-        return (o for o in self._obj_list) if self._obj_list else iter(self._dict())
+        return (o for o in self._obj_list)
 
     def __len__(self):
-        return len(self._obj_list) if self._obj_list else len(self._dict())
+       return len(self._obj_list)
 
     def __repr__(self):
-        return str(self._obj_list) if self._list_only else str(self._dict())
+       return str(self._obj_list) if self._list_only else str(self._dict())
 
     def __setitem__(self, key, value):
         return setattr(self, key, value)
